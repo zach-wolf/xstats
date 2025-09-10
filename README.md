@@ -7,7 +7,7 @@
 This project establishes the core infrastructure for calculating expected baseball statistics (xStats) by modeling the fundamental relationship between batted ball characteristics and outcomes. The initial model predicts hit probability based solely on launch angle and exit velocity, serving as the backbone for more sophisticated expected metrics like xBA (expected batting average), xSLG (expected slugging), and xwOBA.
 
 **Current Model Performance:**
-- **Hit Probability Model**: 0.869 AUC
+- **Hit Probability Model**: 0.868 AUC
 - **Inputs**: Launch angle, exit velocity
 - **Output**: Expected probability of any batted ball becoming a hit
 
@@ -58,6 +58,25 @@ This core model will be expanded to predict:
 - Comprehensive train/test split methodology
 - Cross-validation to ensure model stability
 
+## Model Performance
+
+The foundation model achieves strong predictive performance using only **two input variables**:
+
+| Metric | Value | Interpretation |
+|--------|-------|---------------|
+| ROC AUC | 0.868 | Excellent discrimination with minimal features |
+| Log Loss | 0.415 | Well-calibrated probabilities |
+| Precision | 83.6% | High accuracy for predicted hits |
+
+![Batted Ball Heatmap](Visualizations/prediction_plot.png)
+
+**Key Achievement**: This performance demonstrates that launch angle and exit velocity capture the essential physics of batted ball success, providing a robust foundation for more complex expected statistics.
+
+**Current Model Performance:**
+- **Model Performance**: 0.868 AUC with well-calibrated probabilities
+- **Hit Prediction Accuracy**: 83.6% precision on called hits
+- **Suitable for**: Expected statistics calculations and player evaluation
+
 ## Key Insights
 
 - **Sweet Spot Identification**: Optimal launch angle ranges for different exit velocities
@@ -76,7 +95,8 @@ This core model will be expanded to predict:
 
 ### Prerequisites
 ```r
-install.packages(c("baseballr", "tidyverse", "tidymodels", "DBI", "RPostgreSQL", "RPostgres", "data.table", "ggplot2", "xgboost"))
+devtools::install_github("BillPetti/baseballr")
+install.packages(c("tidyverse", "tidymodels", "DBI", "RPostgreSQL", "RPostgres", "data.table", "ggplot2", "xgboost"))
 ```
 
 ### Usage
